@@ -66,7 +66,7 @@ var formData = [
   },
   {
     "type": "tel",
-    "label": "Mobil Number",
+    "label": "Mobile Number",
     "id": "user-mobile",
     "icon": "fa-mobile-phone",
     "options": []
@@ -94,32 +94,26 @@ var formData = [
   // Check your dev tools console for what the items in formData have
   // console.log(formData[i])
 
+var fields = document.querySelector(".fields");
+
 for (var i = 0; i < formData.length; i++) {
    let form = document.querySelector("form")
    let obj = formData[i];
    let text;
    if (obj.options.length === 0) {
-    text = '<input class="look-pretty" type="' + obj.type + '" id="' + obj.id + '" placeholder="' + obj.label +'">'
+      text = '<input class="look-pretty" type="' + obj.type + '" id="' + obj.id + '" placeholder="' + obj.label +'">'
    } else {
-    text = '<input class="look-pretty" options="' + obj.options[0].label +'" type="' + obj.type + '" id="' + obj.id + '" placeholder="' + obj.label +'">'
+      let entry = document.createElement('select');
+      for (n = 0; n < obj.options.length; n++) {
+         let option = document.createElement('option');
+         option.label = obj.options[n].label;
+         option.value = obj.options[n].value;
+         entry.appendChild(option);
+      }
+      form.appendChild(entry)
    }
-   form.insertAdjacentHTML("beforeend", text);
-  }
 
 
-  for (var i = 0; i < formData.length; i++) {
-   let form = document.querySelector("form")
-   let obj = formData[i];
-   let text;
-   if (obj.options.length === 0) {
-    text = '<input type="' + obj.type + '" id="' + obj.id + '" placeholder="' + obj.label +'"><br>'
- }  else {
-    text = '<select>';
-    for (var i = 0; i < obj.options.length; i++) {
-        let currOption = obj.options[i];
-        text += '<option value="' + currOption.value + '">' + currOption.label + </option>';
-}
-    text += '</select>''
-}
-    form.insertAdjacentHTML("beforeend", text);
+
+  form.insertAdjacentHTML("beforeend", text);
 }
